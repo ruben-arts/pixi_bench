@@ -1,0 +1,24 @@
+[project]
+name = "bench_pixi"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Ruben Arts <ruben.arts@hotmail.com>"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+start = """
+hyperfine --warmup 1 --runs 5  --export-markdown hyperfine.md --export-json hyperfine.json
+--prepare 'rm pixi -rf'
+ 'pixi init -i mamba_env.yml pixi' 
+--prepare 'rm micromamba -rf'
+ 'micromamba create --file mamba_env.yml -p micromamba/.env --yes' 
+--prepare 'rm conda -rf'
+ 'conda env create -f mamba_env.yml -p conda/.env'
+"""
+
+[dependencies]
+hyperfine = ">=1.18.0,<1.19"
+micromamba = ">=1.5.6,<1.6"
+conda = ">=24.1.2,<24.2"
+pixi = ">=0.15.1,<0.16"
