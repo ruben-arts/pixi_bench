@@ -1,0 +1,11 @@
+channels:
+  - conda-forge
+dependencies:
+  - scipy 
+  - polars
+  - ipywidgets ==7.8.0
+  - seaborn
+  - matplotlib
+  - plotly
+  - pip:
+    - pandoc

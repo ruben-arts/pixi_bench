@@ -7,17 +7,23 @@ channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
 
 [tasks]
-start = """
-hyperfine --warmup 1 --runs 5  --export-markdown hyperfine.md --export-json hyperfine.json
+
+bench = """
+hyperfine --warmup 1 --runs 2  --export-markdown hyperfine.md --export-json hyperfine.json
 --prepare 'rm pixi -rf'
- 'pixi init -i mamba_env.yml pixi' 
+ 'pixi init -i dummy_env.yml pixi' 
 --prepare 'rm micromamba -rf'
- 'micromamba create --file mamba_env.yml -p micromamba/.env --yes' 
+ 'micromamba create --file dummy_env.yml -p micromamba/.env --yes' 
 --prepare 'rm conda -rf'
- 'conda env create -f mamba_env.yml -p conda/.env'
+ 'conda env create -f dummy_env.yml -p conda/.env'
 """
+graph = "python graph.py"
+start = {depends_on = ["bench", "graph"]}
 
 [dependencies]
 hyperfine = ">=1.18.0,<1.19"
 micromamba = ">=1.5.6,<1.6"
 conda = ">=24.1.2,<24.2"
+
+# plotting
+matplotlib = "*"
