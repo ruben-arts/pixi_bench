@@ -1,7 +1,3 @@
-# Pixi maintainer notes
-# This file is coming from: https://github.com/mamba-org/mamba/blob/88748be956c8993a727a49695555f8d6c0a69698/dev/environment-dev.yml
-# We've removed the `- sel(win)` as we're not supporting that in the converter from env.yml to pixi.toml. 
-
 channels:
   - conda-forge
 dependencies:
