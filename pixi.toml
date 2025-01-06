@@ -11,19 +11,19 @@ platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
 bench = """
 hyperfine --warmup 1 --runs 2  --export-markdown hyperfine.md --export-json hyperfine.json
 --prepare 'rm pixi -rf'
- 'pixi init -i dummy_env.yml pixi' 
+ 'pixi init -i mamba_env.yml pixi && pixi install --manifest-path pixi/pixi.toml' 
 --prepare 'rm micromamba -rf'
- 'micromamba create --file dummy_env.yml -p micromamba/.env --yes' 
+ 'micromamba create --file mamba_env.yml -p micromamba/.env --yes' 
 --prepare 'rm conda -rf'
- 'conda env create -f dummy_env.yml -p conda/.env'
+ 'conda env create -f mamba_env.yml -p conda/.env'
 """
 graph = "python graph.py"
 start = {depends_on = ["bench", "graph"]}
 
 [dependencies]
 hyperfine = ">=1.18.0,<1.19"
-micromamba = ">=1.5.6,<1.6"
-conda = ">=24.1.2,<24.2"
+micromamba = ">=2.0.5,<3"
+conda = ">=24.11.2,<25"
 
 # plotting
 matplotlib = "*"
