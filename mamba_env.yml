@@ -38,7 +38,7 @@ dependencies:
   - cryptography<40.0  # Or breaks conda-content-trust
   # libmambapy build dependencies
   - scikit-build
-  - build
+  # - build # Yanked
   - pybind11-stubgen <1.0
   # libmambapy dependencies
   - python
