@@ -17,6 +17,7 @@ hyperfine --warmup 2 --runs 10  --export-markdown hyperfine.md --export-json hyp
 --prepare 'rm -rf conda'
  'conda env create -f dummy_env.yml -p conda/.env'
 """
+
 graph = "python graph.py"
 start = { depends-on = ["bench", "graph"] }
 

@@ -22,6 +22,12 @@ jobs:
       - run: |
           pixi run bench
 
+
+      - name: Add summary to PR
+        run: |
+          echo "### ${{ matrix.os }} ${{ matrix.pixi_version }}" >> $GITHUB_STEP_SUMMARY
+          cat hyperfine.md >> $GITHUB_STEP_SUMMARY
+
       - name: Rename and Upload Benchmark Results
         run: |
           mv hyperfine.json ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.json
@@ -34,10 +40,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}_${{ matrix.pixi_version }}_benchmark-results
+          name: ${{ matrix.os }}_${{ matrix.pixi_version }}_benchmark-markdown-results
           path: ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.md
-
-      - name: Add summary to PR
-        run: |
-          echo "### ${{ matrix.os }} ${{ matrix.pixi_version }}" >> $GITHUB_STEP_SUMMARY
-          cat ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.md >> $GITHUB_STEP_SUMMARY
