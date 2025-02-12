@@ -1,21 +1,18 @@
 [project]
 name = "bench_pixi"
-version = "0.1.0"
 description = "Benchmark for pixi"
-authors = ["Ruben Arts <ruben@prefix.dev>"]
 channels = ["conda-forge"]
 platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
 
 [tasks]
-
 bench = """
 hyperfine --warmup 2 --runs 10  --export-markdown hyperfine.md --export-json hyperfine.json
 --prepare 'rm -rf pixi'
- 'pixi init -i dummy_env.yml pixi && cd pixi && pixi install'
+ 'pixi init -i mamba_env.yml pixi && cd pixi && pixi install'
 --prepare 'rm -rf micromamba'
- 'micromamba create --file dummy_env.yml -p micromamba/.env --yes'
+ 'micromamba create --file mamba_env.yml -p micromamba/.env --yes'
 --prepare 'rm -rf conda'
- 'conda env create -f dummy_env.yml -p conda/.env'
+ 'conda env create -f mamba_env.yml -p conda/.env'
 """
 
 graph = "python graph.py"

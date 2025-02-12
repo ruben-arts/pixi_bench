@@ -1,6 +1,6 @@
 # Pixi maintainer notes
 # This file is coming from: https://github.com/mamba-org/mamba/blob/88748be956c8993a727a49695555f8d6c0a69698/dev/environment-dev.yml
-# We've removed the `- sel(win)` as we're not supporting that in the converter from env.yml to pixi.toml. 
+# It's modified to be readable by pixi
 
 channels:
   - conda-forge
@@ -38,7 +38,6 @@ dependencies:
   - cryptography<40.0  # Or breaks conda-content-trust
   # libmambapy build dependencies
   - scikit-build
-  - build
   - pybind11-stubgen <1.0
   # libmambapy dependencies
   - python
@@ -51,6 +50,3 @@ dependencies:
   - sphinx
   - sphinx-book-theme
   - myst-parser
-
-
-
