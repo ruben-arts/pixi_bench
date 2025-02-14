@@ -3,5 +3,4 @@ channels:
 dependencies:
   - rust
   - jupyterlab
-  - arrow-cpp
   - pytorch
