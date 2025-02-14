@@ -23,24 +23,24 @@ jobs:
           environment: ${{ matrix.environment }}
       - run: |
           pixi run bench
-          echo "### ${{ matrix.os }} ${{ matrix.pixi_version }}" >> $GITHUB_STEP_SUMMARY
+          echo "### ${{ matrix.os }} ${{ matrix.pixi_version }} ${{ matrix.environment }}" >> $GITHUB_STEP_SUMMARY
           pixi run chart >> $GITHUB_STEP_SUMMARY
+
       - name: Add summary to PR
         run: |
-
           cat hyperfine.md >> $GITHUB_STEP_SUMMARY
 
       - name: Rename and Upload Benchmark Results
         run: |
-          mv hyperfine.json ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.json
-          mv hyperfine.md ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.md
+          mv hyperfine.json ${{ matrix.os }}_${{ matrix.pixi_version }}_${{ matrix.environment }}_bench-results.json
+          mv hyperfine.md ${{ matrix.os }}_${{ matrix.pixi_version }}_${{ matrix.environment }}_bench-results.md
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}_${{ matrix.pixi_version }}_benchmark-results
-          path: ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.json
+          name: ${{ matrix.os }}_${{ matrix.pixi_version }}_${{ matrix.environment }}_benchmark-results
+          path: ${{ matrix.os }}_${{ matrix.pixi_version }}_${{ matrix.environment }}_bench-results.json
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}_${{ matrix.pixi_version }}_benchmark-markdown-results
-          path: ${{ matrix.os }}_${{ matrix.pixi_version }}_bench-results.md
+          name: ${{ matrix.os }}_${{ matrix.pixi_version }}_${{ matrix.environment }}_benchmark-markdown-results
+          path: ${{ matrix.os }}_${{ matrix.pixi_version }}_${{ matrix.environment }}_bench-results.md
