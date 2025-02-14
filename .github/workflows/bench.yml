@@ -20,7 +20,7 @@ jobs:
         with:
           pixi-version: ${{ matrix.pixi_version }}
           cache: true
-          environment: ${{ matrix.environment }}
+          environments: ${{ matrix.environment }}
       - name: Run the benchmark
         shell: bash
         run: |
