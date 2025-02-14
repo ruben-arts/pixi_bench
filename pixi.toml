@@ -6,17 +6,33 @@ platforms = ["linux-64", "osx-arm64", "osx-64", "win-64"]
 
 [tasks]
 bench = """
-hyperfine --warmup 2 --runs 10  --export-markdown hyperfine.md --export-json hyperfine.json
+echo -----  Benchmark using $ENV_FILE -----;
+hyperfine --warmup 1 --runs 1  --export-markdown hyperfine.md --export-json hyperfine.json
 --prepare 'rm -rf pixi'
- 'pixi init -i mamba_env.yml pixi && cd pixi && pixi install'
+ 'pixi init -i $ENV_FILE pixi && cd pixi && pixi install'
 --prepare 'rm -rf micromamba'
- 'micromamba create --file mamba_env.yml -p micromamba/.env --yes'
+ 'micromamba create --file $ENV_FILE -p micromamba/.env --yes'
 --prepare 'rm -rf conda'
- 'conda env create -f mamba_env.yml -p conda/.env'
+ 'conda env create -f $ENV_FILE -p conda/.env'
 """
 
 graph = "python graph.py"
+chart = "python chart.py"
 start = { depends-on = ["bench", "graph"] }
+
+[feature.micro.activation.env]
+ENV_FILE = "micro_env.yml"
+
+[feature.dummy.activation.env]
+ENV_FILE = "dummy_env.yml"
+
+[feature.stress.activation.env]
+ENV_FILE = "stress_env.yml"
+
+[environments]
+default = { features = ["micro"], solve-group = "default"}
+dummy = { features = ["dummy"], solve-group = "default"}
+stress = { features = ["stress"], solve-group = "default"}
 
 [dependencies]
 hyperfine = ">=1.19.0,<2"

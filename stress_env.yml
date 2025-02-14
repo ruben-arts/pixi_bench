@@ -1,0 +1,7 @@
+channels:
+  - https://prefix.dev/conda-forge
+dependencies:
+  - rust
+  - jupyterlab
+  - arrow-cpp
+  - pytorch
